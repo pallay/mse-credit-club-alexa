@@ -4,10 +4,22 @@
       "intent": "TellMeMyScoreIntent"
     },
     {
+      "intent": "WhatsComingUpIntent"
+    },
+    {
       "intent": "NextUpdateDateIntent"
     },
     {
-      "intent": "MemorableWordIntent"
+      "intent": "WhatsMyTopThreeCardsIntent"
+    },
+    {
+     "intent": "MemorableWordIntent",
+     "slots":[
+        {
+          "name": "MemWord",
+          "type": "LIST_OF_CORRECT_MEM_WORDS"
+        }
+      ]
     },
     {
      "intent": "WhosThereIntent",
