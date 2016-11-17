@@ -133,7 +133,7 @@ Response.prototype = (function() {
         title: options.cardTitle,
         text: options.cardContent,
         image: {
-          smallImageUrl: "https://carfu.com/resources/card-images/race-car-small.png",
+          smallImageUrl: "https://s3-eu-west-1.amazonaws.com/credit-club/sd.png",
           largeImageUrl: "https://s3-eu-west-1.amazonaws.com/credit-club/sd.png"
         }
       };
@@ -414,7 +414,7 @@ function handleMyEligibility(session, response) {
 
 function handleTopThreeCards(session, response) {
   var speechText =
-    "You are eligible for \n Barclay Card One, MBNA Two and Mastercard Three. You have 100% approval for each card. Apple online only and here's a link.";
+    "You are eligible for \n Barclay Card One, MBNA Two and Mastercard Three. \nYou have 100% approval for each card. Apply online, here's a link.";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
