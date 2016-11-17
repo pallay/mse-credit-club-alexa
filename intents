@@ -1,11 +1,31 @@
-
 {
   "intents": [
     {
-      "intent": "WhatsMyScoreIntent"
+      "intent": "TellMeMyScoreIntent"
     },
     {
-      "intent": "NextScoreUpdateIntent"
+      "intent": "NextUpdateDateIntent"
+    },
+    {
+      "intent": "MemorableWordIntent"
+    },
+    {
+     "intent": "WhosThereIntent",
+     "slots":[
+        {
+          "name": "SetupName",
+          "type": "LIST_OF_SETUP_NAMES"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
     }
   ]
 }

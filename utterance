@@ -1,2 +1,11 @@
-WhatsMyScoreIntent what's my score
-NextScoreUpdateIntent when is my score next updated
+TellMeMyScoreIntent what's my score
+TellMeMyScoreIntent to tell me my score
+TellMeMyScoreIntent what's my credit club score
+TellMeMyScoreIntent to tell me my credit club score
+
+WhosThereIntent {SetupName} who
+
+MemorableWordIntent a b c
+
+NextUpdateDateIntent when's my next score update
+NextUpdateDateIntent when's the next refresh
