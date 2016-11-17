@@ -83,6 +83,8 @@ function onIntent(intentRequest, session, callback) {
     handleTestRequest(intent, session, callback);
   } else if (intentName == 'NextScoreUpdateIntent') {
     handleNextScoreUpdateIntent(intent, session, callback);
+  } else if (intentName == 'EndSessionIntent') {
+
   } else {
     throw "Invalid intent";
   }
@@ -156,6 +158,11 @@ function handleNextScoreUpdateIntent(intent, session, callback) {
     buildSpeechletResponseWithoutCard(
       "Your score will be next updated on the " + getDateAsString(
         generateNextDate(randomLastUpdatedDate)), "", true));
+}
+
+function handleEndSessionIntent(intent, session, callback) {
+  callback(session.attributes,
+    buildSpeechletResponseWithoutCard("You're welcome", "", true));
 }
 
 // ------- Helper functions to build responses -------
