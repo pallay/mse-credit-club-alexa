@@ -209,23 +209,22 @@ var APP_ID = undefined; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-valu
 /**
  * Array containing knock knock jokes.
  */
-// var JOKE_LIST = [
+// var QUESTION_LIST = [
 // {setup: "Beets!", speechPunchline: "Beats me!", cardPunchline: "Beats me!"},
 // {setup: "Little Old Lady", speechPunchline: "I didn't know you could yodel!",
 //     cardPunchline: "I didn't know you could yodel!"},
-// {setup: "A broken pencil", speechPunchline: "Never mind. It's pointless.",
-//     cardPunchline: "Never mind. It's pointless."},
-// {setup: "Snow", speechPunchline: "Snow use. I forgot", cardPunchline: "Snow use. I forgot"},
-// {setup: "Boo", speechPunchline: "Aww <break time=\"0.3s\" /> it's okay <break time=\"0.3s\" /> don't cry.",
-//     cardPunchline: "Aww, it's okay, don't cry."},
-// {setup: "Woo", speechPunchline: "Don't get so excited, it's just a joke",
-//     cardPunchline: "Don't get so excited, it's just a joke"},
-// {setup: "Spell", speechPunchline: "<say-as interpret-as=\"characters\">who</say-as>",
-//     cardPunchline: "w.h.o"},
-// {setup: "Atch", speechPunchline: "I didn't know you had a cold!", cardPunchline: "I didn't know you had a cold!"},
-// {setup: "Owls", speechPunchline: "Yes, they do.", cardPunchline: "Yes, they do."},
-// {setup: "Berry!", speechPunchline: "Berry nice to meet you.", cardPunchline: "Berry nice to meet you."}
 // ];
+
+var SCORE_LIST = [{
+  setup: "999",
+  cardPunchline: "Off the scale!"
+}, {
+  setup: "888",
+  cardPunchline: "Good"
+}, {
+  setup: "777",
+  cardPunchline: "So-So"
+}, ];
 
 /**
  * The AlexaSkill prototype and helper functions
@@ -441,7 +440,7 @@ function handleTellMeAJokeIntent(session, response) {
     }
   } else {
     //Select a random joke and store it in the session variables.
-    // var jokeID = Math.floor(Math.random() * JOKE_LIST.length);
+    var randomScore = Math.floor(Math.random() * SCORE_LIST.length);
 
     //The stage variable tracks the phase of the dialogue.
     //When this function completes, it will be on stage 1.
@@ -453,9 +452,11 @@ function handleTellMeAJokeIntent(session, response) {
     session.attributes.setup =
       'I already have your email and password saved. \nWhat is the 1st, 2nd and 3rd characters of your memorable word';
     session.attributes.speechPunchline =
-      "Your score is 998 and was last updated on the " + getDateAsString(
+      "Your score is " + randomScore + " and was last updated on the " +
+      getDateAsString(
         randomLastUpdatedDate);
-    session.attributes.cardPunchline = 'Your Experian Credit Score is 998';
+    session.attributes.cardPunchline = "Your Experian Credit Score is " +
+      randomScore;
 
     speechText = 'Who are you?';
   }
