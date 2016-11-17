@@ -185,16 +185,6 @@ Response.prototype = (function() {
 
 
 /**
-    Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
-        http://aws.amazon.com/apache2.0/
-
-    or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-/**
  * This sample shows how to create a Lambda function for handling Alexa Skill requests that:
  *
  * - Session State: Handles a multi-turn dialog model.
@@ -243,7 +233,7 @@ var APP_ID = undefined; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-valu
 // var AlexaSkill = require('./AlexaSkill');
 
 /**
- * CCSkill is a child of AlexaSkill.
+ * CreditClubSkill is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
@@ -253,13 +243,13 @@ var CreditClubSkill = function() {
 };
 
 // Extend AlexaSkill
-CreditClub.prototype = Object.create(AlexaSkill.prototype);
-CreditClub.prototype.constructor = CreditClub;
+CreditClubSkill.prototype = Object.create(AlexaSkill.prototype);
+CreditClubSkill.prototype.constructor = CreditClubSkill;
 
 /**
  * Overriden to show that a subclass can override this function to initialize session state.
  */
-CreditClub.prototype.eventHandlers.onSessionStarted = function(
+CreditClubSkill.prototype.eventHandlers.onSessionStarted = function(
   sessionStartedRequest, session) {
   console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId +
     ", sessionId: " + session.sessionId);
@@ -290,10 +280,6 @@ CreditClubSkill.prototype.eventHandlers.onSessionEnded = function(
 };
 
 CreditClubSkill.prototype.intentHandlers = {
-  "NextUpdateDateIntent": function(intent, session, response) {
-    handleNextUpdatedDate(session, response);
-  },
-
   "TellMeMyScoreIntent": function(intent, session, response) {
     handleTellMeAJokeIntent(session, response);
   },
@@ -304,6 +290,14 @@ CreditClubSkill.prototype.intentHandlers = {
 
   "MemorableWordIntent": function(intent, session, response) {
     handleSetupNameWhoIntent(session, response);
+  },
+
+  "NextUpdateDateIntent": function(intent, session, response) {
+    handleNextUpdatedDate(session, response);
+  },
+
+  "WhatsNextIntent": function(intent, session, response) {
+    handleWhatsNext(session, response);
   },
 
   "AMAZON.HelpIntent": function(intent, session, response) {
@@ -405,6 +399,15 @@ function handleNextUpdatedDate(session, response) {
   response.tellWithCard(speechOutput, "Credit Club", speechText);
 }
 
+function handleWhatsNext(session, response) {
+  var speechText = "Coming soon you'll be able to apply for mortages!";
+  var speechOutput = {
+    speech: speechText,
+    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+  };
+  response.tellWithCard(speechOutput, "Credit Club", speechText);
+}
+
 function debugBySpeech(response, speechText) {
   var speechOutput = {
     speech: speechText,
@@ -448,13 +451,12 @@ function handleTellMeAJokeIntent(session, response) {
     // session.attributes.cardPunchline = JOKE_LIST[jokeID].cardPunchline;
 
     session.attributes.setup =
-      'what is your 1st, 2nd and 3rd characters of your memorable word';
+      'I already have your email and password saved. \nWhat is the 1st, 2nd and 3rd characters of your memorable word';
     session.attributes.speechPunchline =
       "Your score is 998 and was last updated on the " + getDateAsString(
         randomLastUpdatedDate);
-    session.attributes.cardPunchline = 'Card is 998';
+    session.attributes.cardPunchline = 'Your Experian Credit Score is 998';
 
-    // speechText = "Knock knock!";
     speechText = 'Who are you?';
   }
 
@@ -466,7 +468,7 @@ function handleTellMeAJokeIntent(session, response) {
     speech: repromptText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
   };
-  response.askWithCard(speechOutput, repromptOutput, "Credit Club", speechText);
+  response.ask(speechOutput, repromptOutput, "Credit Club", speechText);
 }
 
 /**
