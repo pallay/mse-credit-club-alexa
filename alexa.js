@@ -203,12 +203,12 @@ Response.prototype = (function() {
  *
  * Examples:
  * Dialog model:
- *  User: "Alexa, ask Wise Guy to tell me a knock knock joke."
- *  Alexa: "Knock knock"
- *  User: "Who's there?"
- *  Alexa: "<phrase>"
- *  User: "<phrase> who"
- *  Alexa: "<Punchline>"
+ *  User: "Alexa, ask credit club what's my score"
+ *  Alexa: "Who are you"
+ *  User: "Pallay"
+ *  Alexa: "What is your memorable word"
+ *  User: "apple"
+ *  Alexa: "Your score is 998 and was updated on the 28th of October"
  */
 
 /**
@@ -219,27 +219,23 @@ var APP_ID = undefined; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-valu
 /**
  * Array containing knock knock jokes.
  */
-var JOKE_LIST = [{
-    setup: "a b c",
-    speechPunchline: "Correct grammar is <break time=\"0.2s\" /> to whom.",
-    cardPunchline: "Correct grammar is 'to whom'."
-  },
-  // {setup: "Beets!", speechPunchline: "Beats me!", cardPunchline: "Beats me!"},
-  // {setup: "Little Old Lady", speechPunchline: "I didn't know you could yodel!",
-  //     cardPunchline: "I didn't know you could yodel!"},
-  // {setup: "A broken pencil", speechPunchline: "Never mind. It's pointless.",
-  //     cardPunchline: "Never mind. It's pointless."},
-  // {setup: "Snow", speechPunchline: "Snow use. I forgot", cardPunchline: "Snow use. I forgot"},
-  // {setup: "Boo", speechPunchline: "Aww <break time=\"0.3s\" /> it's okay <break time=\"0.3s\" /> don't cry.",
-  //     cardPunchline: "Aww, it's okay, don't cry."},
-  // {setup: "Woo", speechPunchline: "Don't get so excited, it's just a joke",
-  //     cardPunchline: "Don't get so excited, it's just a joke"},
-  // {setup: "Spell", speechPunchline: "<say-as interpret-as=\"characters\">who</say-as>",
-  //     cardPunchline: "w.h.o"},
-  // {setup: "Atch", speechPunchline: "I didn't know you had a cold!", cardPunchline: "I didn't know you had a cold!"},
-  // {setup: "Owls", speechPunchline: "Yes, they do.", cardPunchline: "Yes, they do."},
-  // {setup: "Berry!", speechPunchline: "Berry nice to meet you.", cardPunchline: "Berry nice to meet you."}
-];
+// var JOKE_LIST = [
+// {setup: "Beets!", speechPunchline: "Beats me!", cardPunchline: "Beats me!"},
+// {setup: "Little Old Lady", speechPunchline: "I didn't know you could yodel!",
+//     cardPunchline: "I didn't know you could yodel!"},
+// {setup: "A broken pencil", speechPunchline: "Never mind. It's pointless.",
+//     cardPunchline: "Never mind. It's pointless."},
+// {setup: "Snow", speechPunchline: "Snow use. I forgot", cardPunchline: "Snow use. I forgot"},
+// {setup: "Boo", speechPunchline: "Aww <break time=\"0.3s\" /> it's okay <break time=\"0.3s\" /> don't cry.",
+//     cardPunchline: "Aww, it's okay, don't cry."},
+// {setup: "Woo", speechPunchline: "Don't get so excited, it's just a joke",
+//     cardPunchline: "Don't get so excited, it's just a joke"},
+// {setup: "Spell", speechPunchline: "<say-as interpret-as=\"characters\">who</say-as>",
+//     cardPunchline: "w.h.o"},
+// {setup: "Atch", speechPunchline: "I didn't know you had a cold!", cardPunchline: "I didn't know you had a cold!"},
+// {setup: "Owls", speechPunchline: "Yes, they do.", cardPunchline: "Yes, they do."},
+// {setup: "Berry!", speechPunchline: "Berry nice to meet you.", cardPunchline: "Berry nice to meet you."}
+// ];
 
 /**
  * The AlexaSkill prototype and helper functions
@@ -247,23 +243,23 @@ var JOKE_LIST = [{
 // var AlexaSkill = require('./AlexaSkill');
 
 /**
- * WiseGuySkill is a child of AlexaSkill.
+ * CCSkill is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
-var WiseGuySkill = function() {
+var CreditClubSkill = function() {
   AlexaSkill.call(this, APP_ID);
 };
 
 // Extend AlexaSkill
-WiseGuySkill.prototype = Object.create(AlexaSkill.prototype);
-WiseGuySkill.prototype.constructor = WiseGuySkill;
+CreditClub.prototype = Object.create(AlexaSkill.prototype);
+CreditClub.prototype.constructor = CreditClub;
 
 /**
  * Overriden to show that a subclass can override this function to initialize session state.
  */
-WiseGuySkill.prototype.eventHandlers.onSessionStarted = function(
+CreditClub.prototype.eventHandlers.onSessionStarted = function(
   sessionStartedRequest, session) {
   console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId +
     ", sessionId: " + session.sessionId);
@@ -274,9 +270,9 @@ WiseGuySkill.prototype.eventHandlers.onSessionStarted = function(
 /**
  * If the user launches without specifying an intent, route to the correct function.
  */
-WiseGuySkill.prototype.eventHandlers.onLaunch = function(launchRequest, session,
-  response) {
-  console.log("WiseGuySkill onLaunch requestId: " + launchRequest.requestId +
+CreditClubSkill.prototype.eventHandlers.onLaunch = function(launchRequest,
+  session, response) {
+  console.log("CreditClubSkill onLaunch requestId: " + launchRequest.requestId +
     ", sessionId: " + session.sessionId);
 
   handleTellMeAJokeIntent(session, response);
@@ -285,7 +281,7 @@ WiseGuySkill.prototype.eventHandlers.onLaunch = function(launchRequest, session,
 /**
  * Overriden to show that a subclass can override this function to teardown session state.
  */
-WiseGuySkill.prototype.eventHandlers.onSessionEnded = function(
+CreditClubSkill.prototype.eventHandlers.onSessionEnded = function(
   sessionEndedRequest, session) {
   console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId +
     ", sessionId: " + session.sessionId);
@@ -293,7 +289,7 @@ WiseGuySkill.prototype.eventHandlers.onSessionEnded = function(
   //Any session cleanup logic would go here.
 };
 
-WiseGuySkill.prototype.intentHandlers = {
+CreditClubSkill.prototype.intentHandlers = {
   "NextUpdateDateIntent": function(intent, session, response) {
     handleNextUpdatedDate(session, response);
   },
@@ -406,7 +402,7 @@ function handleNextUpdatedDate(session, response) {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
   };
-  response.tellWithCard(speechOutput, "Wise Guy", speechText);
+  response.tellWithCard(speechOutput, "Credit Club", speechText);
 }
 
 function debugBySpeech(response, speechText) {
@@ -414,7 +410,7 @@ function debugBySpeech(response, speechText) {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
   };
-  response.tellWithCard(speechOutput, "Wise Guy", speechText);
+  response.tellWithCard(speechOutput, "Credit Club", speechText);
 }
 
 /**
@@ -430,16 +426,16 @@ function handleTellMeAJokeIntent(session, response) {
   if (session.attributes.stage) {
 
     //Ensure the dialogue is on the correct stage.
-    // if (session.attributes.stage === 0) {
-    //     //The joke is already initialized, this function has no more work.
-    //     // speechText = "knock knock!";
-    //     speechText = 'at stage zero';
-    // } else {
-    //     //The user attempted to jump to the intent of another stage.
-    //     session.attributes.stage = 0;
-    //     speechText = "That's not how knock knock jokes work! "
-    //         + "knock knock";
-    // }
+    if (session.attributes.stage === 0) {
+      //     //The joke is already initialized, this function has no more work.
+      //     // speechText = "knock knock!";
+      speechText = 'at stage zero';
+    } else {
+      //     //The user attempted to jump to the intent of another stage.
+      session.attributes.stage = 0;
+      //     speechText = "That's not how knock knock jokes work! "
+      //         + "knock knock";
+    }
   } else {
     //Select a random joke and store it in the session variables.
     // var jokeID = Math.floor(Math.random() * JOKE_LIST.length);
@@ -470,7 +466,7 @@ function handleTellMeAJokeIntent(session, response) {
     speech: repromptText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
   };
-  response.askWithCard(speechOutput, repromptOutput, "Wise Guy", speechText);
+  response.askWithCard(speechOutput, repromptOutput, "Credit Club", speechText);
 }
 
 /**
@@ -493,7 +489,7 @@ function handleWhosThereIntent(session, response) {
       session.attributes.stage = 1;
       // speechText = "That's not how knock knock jokes work! <break time=\"0.3s\" /> "
       //     + "knock knock";
-      speechText = "Sorry that is incorrect";
+      speechText = "Sorry that is incorrect.  Please try again.";
 
       repromptText = "You can ask, who's there."
     }
@@ -527,39 +523,39 @@ function handleSetupNameWhoIntent(session, response) {
     repromptOutput,
     cardOutput;
 
-  debugBySpeech(response, "checking");
   if (session.attributes.stage) {
     if (session.attributes.stage === 2) {
-      debugBySpeech(response, "happy days");
-      // speechText = session.attributes.speechPunchline;
-      // cardOutput = session.attributes.cardPunchline;
-      // speechOutput = {
-      //     speech: '<speak>' + speechText + '</speak>',
-      //     type: AlexaSkill.speechOutputType.SSML
-      // };
-      // //If the joke completes successfully, this function uses a "tell" response.
-      // response.tellWithCard(speechOutput, "Wise Guy", cardOutput);
+
+      speechText = session.attributes.speechPunchline;
+      cardOutput = session.attributes.cardPunchline;
+      speechOutput = {
+        speech: '<speak>' + speechText + '</speak>',
+        type: AlexaSkill.speechOutputType.SSML
+      };
+      //If the joke completes successfully, this function uses a "tell" response.
+      response.tellWithCard(speechOutput, "Credit Club", cardOutput);
     } else {
-      debugBySpeech(response, "bad days");
+      //   debugBySpeech(response, "bad days");
 
-      // session.attributes.stage = 1;
-      // speechText = "That's not how knock knock jokes work! <break time=\"0.3s\" /> "
-      //     + "Knock knock!";
-      // cardOutput = "That's not how knock knock jokes work! "
-      //     + "Knock knock!";
+      session.attributes.stage = 1;
+      speechText =
+        "That's not how knock knock jokes work! <break time=\"0.3s\" /> " +
+        "Knock knock!";
+      cardOutput = "That's not how knock knock jokes work! " + "Knock knock!";
 
-      // repromptText = "You can ask who's there.";
+      repromptText = "You can ask who's there.";
 
-      // speechOutput = {
-      //     speech: speechText,
-      //     type: AlexaSkill.speechOutputType.SSML
-      // };
-      // repromptOutput = {
-      //     speech: repromptText,
-      //     type: AlexaSkill.speechOutputType.PLAIN_TEXT
-      // };
-      // //If the joke has to be restarted, this function uses an "ask" response.
-      // response.askWithCard(speechOutput, repromptOutput, "Wise Guy", cardOutput);
+      speechOutput = {
+        speech: speechText,
+        type: AlexaSkill.speechOutputType.SSML
+      };
+      repromptOutput = {
+        speech: repromptText,
+        type: AlexaSkill.speechOutputType.PLAIN_TEXT
+      };
+      //If the joke has to be restarted, this function uses an "ask" response.
+      response.askWithCard(speechOutput, repromptOutput, "Credit Club",
+        cardOutput);
     }
   } else {
     debugBySpeech(response, "bad days two");
@@ -576,13 +572,13 @@ function handleSetupNameWhoIntent(session, response) {
     //     speech: repromptText,
     //     type: AlexaSkill.speechOutputType.PLAIN_TEXT
     // };
-    // response.askWithCard(speechOutput, repromptOutput, "Wise Guy", speechOutput);
+    // response.askWithCard(speechOutput, repromptOutput, "Credit Club", speechOutput);
   }
 }
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function(event, context) {
-  // Create an instance of the WiseGuy Skill.
-  var skill = new WiseGuySkill();
+  // Create an instance of the CreditClub Skill.
+  var skill = new CreditClubSkill();
   skill.execute(event, context);
 };
