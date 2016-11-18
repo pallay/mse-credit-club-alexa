@@ -218,7 +218,7 @@ var SCORE_LIST = [{
   scoreDesc: "Good"
 }, {
   score: "777",
-  scoreDesc: "So-So"
+  scoreDesc: "which is rubbish"
 }];
 
 /**
@@ -285,6 +285,18 @@ CreditClubSkill.prototype.intentHandlers = {
     handleNextUpdatedDate(session, response);
   },
 
+  "SayGoodbyeIntent": function(intent, session, response) {
+    handleGoodbye(session, response);
+  },
+
+  "SayHelloIntent": function(intent, session, response) {
+    handleHello(session, response);
+  },
+
+  "HaveInsightsChangedIntent": function(intent, session, response) {
+    handleHaveInsightsChanged(session, response);
+  },
+
   "WhatsComingUpIntent": function(intent, session, response) {
     handleWhatsComingUp(session, response);
   },
@@ -329,12 +341,13 @@ CreditClubSkill.prototype.intentHandlers = {
   },
 
   "AMAZON.StopIntent": function(intent, session, response) {
-    var speechOutput = "Okay remember to read the Martin's weekly tip";
+    var speechOutput =
+      "Okay remember to read the Martin's weekly tip on Tuesday";
     response.tell(speechOutput);
   },
 
   "AMAZON.CancelIntent": function(intent, session, response) {
-    var speechOutput = "Okay remember to read the Martin's weekly tip";
+    var speechOutput = "Sorry did I do something wrong. Spank me.";
     response.tell(speechOutput);
   }
 };
@@ -396,13 +409,24 @@ function handleNextUpdatedDate(session, response) {
 
 function handleWhatsComingUp(session, response) {
   var speechText =
-    "Coming soon in 2017, you'll be able to apply for mortages! Keep an eye on on your email";
+    "Coming soon in 2017, you'll be able to apply for mortages! But then again I voted for Hillary";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
   };
   response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
 }
+
+function handleHaveInsightsChanged(session, response) {
+  var speechText =
+    "Your address has become more stable and is now green. Good stuff!";
+  var speechOutput = {
+    speech: speechText,
+    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+  };
+  response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
+}
+
 
 function handleMyEligibility(session, response) {
   var speechText = "You have high eligibilty for credit cards and loans.";
@@ -413,9 +437,39 @@ function handleMyEligibility(session, response) {
   response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
 }
 
+function handleHello(session, response) {
+  var speechText =
+    "Hello everyone! I am the voice of Martin Lewis from the telly. <break time=\"0.3s\" /> Thanks for letting me be the star of the hackathon.";
+  var speechOutput = {
+    speech: speechText,
+    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+  };
+  response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
+}
+
+function handleGoodbye(session, response) {
+  var speechText =
+    "Signup to the app - why haven't you already! \n \nAlexa: adding a voice to MSEs Credit Club";
+  var speechOutput = {
+    speech: speechText,
+    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+  };
+  response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
+}
+
+function handleMyEligibility(session, response) {
+  var speechText =
+    "You have high eligibilty for credit cards and loans. Well done!";
+  var speechOutput = {
+    speech: speechText,
+    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+  };
+  response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
+}
+
 function handleTopThreeCards(session, response) {
   var speechText =
-    "You are eligible for \n Barclay Card One, MBNA Two and Mastercard Three. \nYou have 100% approval for each card. You can apply online but clicking on the link here.";
+    "You are eligible for \n Barclay Card One, MBNA Two and Mastercard Three. \n You have 100% approval for each card. You can apply online by clicking on the link here.";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -431,9 +485,6 @@ function debugBySpeech(response, speechText) {
   response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
 }
 
-/**
- * Selects a joke randomly and starts it off by saying "Knock knock".
- */
 function handleTellMeMyScoreIntent(session, response) {
   var speechText = "";
 
@@ -450,8 +501,6 @@ function handleTellMeMyScoreIntent(session, response) {
     } else {
       //     //The user attempted to jump to the intent of another stage.
       session.attributes.stage = 0;
-      //     speechText = "That's not how knock knock jokes work! "
-      //         + "knock knock";
     }
   } else {
     //Select a random score
@@ -504,15 +553,12 @@ function handleWhosThereIntent(session, response) {
       repromptText = "You can ask, " + speechText + " who?";
     } else {
       session.attributes.stage = 1;
-      // speechText = "That's not how knock knock jokes work! <break time=\"0.3s\" /> "
-      //     + "knock knock";
-      speechText = "Sorry that is incorrect.  Please try again.";
+      speechText = "Sorry that is incorrect. Please try again.";
 
       repromptText = "You can ask, who's there."
     }
   } else {
 
-    //If the session attributes are not found, the joke must restart.
     speechText = "Sorry, I couldn't correctly access Credit Club. " +
       "You can say again";
 
@@ -549,14 +595,13 @@ function handleSetupNameWhoIntent(session, response) {
         speech: '<speak>' + speechText + '</speak>',
         type: AlexaSkill.speechOutputType.SSML
       };
-      //If the joke completes successfully, this function uses a "tell" response.
       response.tellWithCard(speechOutput, "MSE's Credit Club", cardOutput);
     } else {
       //   debugBySpeech(response, "bad days");
 
       session.attributes.stage = 1;
       speechText =
-        "That's not how knock knock jokes work! <break time=\"0.3s\" /> " +
+        "That's not how the Credit Club app works! <break time=\"0.3s\" /> " +
         "Knock knock!";
       cardOutput = "That's not how knock knock jokes work! " + "Knock knock!";
 
