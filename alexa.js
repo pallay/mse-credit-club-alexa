@@ -201,7 +201,7 @@ Response.prototype = (function() {
  *  Alexa: "Who are you"
  *  User: "Pallay"
  *  Alexa: "What is your memorable word"
- *  User: "apple"
+ *  User: "msm"
  *  Alexa: "Your score is 998 and was updated on the 28th of October"
  */
 
@@ -395,7 +395,8 @@ function handleNextUpdatedDate(session, response) {
 }
 
 function handleWhatsComingUp(session, response) {
-  var speechText = "Coming soon, you'll be able to apply for mortages!";
+  var speechText =
+    "Coming soon in 2017, you'll be able to apply for mortages! Keep an eye on on your email";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -414,7 +415,7 @@ function handleMyEligibility(session, response) {
 
 function handleTopThreeCards(session, response) {
   var speechText =
-    "You are eligible for \n Barclay Card One, MBNA Two and Mastercard Three. \nYou have 100% approval for each card. Apply online, here's a link.";
+    "You are eligible for \n Barclay Card One, MBNA Two and Mastercard Three. \nYou have 100% approval for each card. You can apply online but clicking on the link here.";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
