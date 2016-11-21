@@ -212,13 +212,13 @@ var APP_ID = undefined; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-valu
 
 var SCORE_LIST = [{
   score: "999",
-  scoreDesc: "Off the scale!"
-}, {
-  score: "888",
-  scoreDesc: "Good"
+  scoreDesc: "On the moon!"
 }, {
   score: "777",
-  scoreDesc: "which is rubbish"
+  scoreDesc: "Good"
+}, {
+  score: "333",
+  scoreDesc: "which is low"
 }];
 
 /**
@@ -409,7 +409,7 @@ function handleNextUpdatedDate(session, response) {
 
 function handleWhatsComingUp(session, response) {
   var speechText =
-    "Coming soon in 2017, you'll be able to apply for mortages! But then again I voted for Hillary";
+    "Coming soon in 2017, you'll be able to apply for mortages! Register through me, and I won't mention using Siri or Ok Google";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -419,17 +419,7 @@ function handleWhatsComingUp(session, response) {
 
 function handleHaveInsightsChanged(session, response) {
   var speechText =
-    "Your address has become more stable and is now green. Good stuff!";
-  var speechOutput = {
-    speech: speechText,
-    type: AlexaSkill.speechOutputType.PLAIN_TEXT
-  };
-  response.tellWithCard(speechOutput, "MSE's Credit Club", speechText);
-}
-
-
-function handleMyEligibility(session, response) {
-  var speechText = "You have high eligibilty for credit cards and loans.";
+    "Your address has become more stable and is now green. \n You are now earning interest on your Visa credit card. You should switch to a better card!";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -439,7 +429,7 @@ function handleMyEligibility(session, response) {
 
 function handleHello(session, response) {
   var speechText =
-    "Hello everyone! I am the voice of Martin Lewis from the telly. <break time=\"0.3s\" /> Thanks for letting me be the star of the hackathon.";
+    "Hello everyone! I am the voice of Martin Lewis from the telly. Thanks for letting me be the star of the hackathon.";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -459,7 +449,7 @@ function handleGoodbye(session, response) {
 
 function handleMyEligibility(session, response) {
   var speechText =
-    "You have high eligibilty for credit cards and loans. Well done!";
+    "You have HIGH eligibilty for credit cards and loans. Well done!";
   var speechOutput = {
     speech: speechText,
     type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -597,7 +587,6 @@ function handleSetupNameWhoIntent(session, response) {
       };
       response.tellWithCard(speechOutput, "MSE's Credit Club", cardOutput);
     } else {
-      //   debugBySpeech(response, "bad days");
 
       session.attributes.stage = 1;
       speechText =
@@ -620,7 +609,6 @@ function handleSetupNameWhoIntent(session, response) {
         cardOutput);
     }
   } else {
-    debugBySpeech(response, "bad days two");
     speechText = "Sorry, I couldn't correctly connect to Credit Club."
 
     repromptText = "You can say, ask for your score";
